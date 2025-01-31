@@ -1,9 +1,13 @@
 -- +goose Up
 -- +goose StatementBegin
-SELECT 'up SQL query';
+CREATE TABLE `majors` (
+    `id` varchar(36) NOT NULL,
+    `name` varchar(300) NOT NULL,
+    PRIMARY KEY (`id`)
+);
 -- +goose StatementEnd
 
 -- +goose Down
 -- +goose StatementBegin
-SELECT 'down SQL query';
+DROP TABLE IF EXISTS `majors`;
 -- +goose StatementEnd

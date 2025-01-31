@@ -1,9 +1,12 @@
 -- +goose Up
 -- +goose StatementBegin
-SELECT 'up SQL query';
+CREATE TABLE `nurse_profiles` (
+    `id` varchar(36) NOT NULL,
+    PRIMARY KEY (`id`)
+);
 -- +goose StatementEnd
 
 -- +goose Down
 -- +goose StatementBegin
-SELECT 'down SQL query';
+DROP TABLE IF EXISTS `nurse_profiles`;
 -- +goose StatementEnd
