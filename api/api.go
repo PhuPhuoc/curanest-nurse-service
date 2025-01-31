@@ -56,7 +56,7 @@ func (sv *server) RunApp() error {
 
 	if envDevlopment == env_vps {
 		// gin.SetMode(gin.ReleaseMode)
-		docs.SwaggerInfo.BasePath = "/patient"
+		docs.SwaggerInfo.BasePath = "/nurse"
 		urlAccServices = urlacc_prod
 	}
 	fmt.Println(urlAccServices)
