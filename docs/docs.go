@@ -15,6 +15,76 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/v1/majors": {
+            "get": {
+                "description": "get major",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "major"
+                ],
+                "summary": "get major",
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "create new major",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "major"
+                ],
+                "summary": "create new major - admin",
+                "parameters": [
+                    {
+                        "description": "account creation data",
+                        "name": "form",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/majorcommands.CreateMajorCmdDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/ping": {
             "get": {
                 "description": "ping server",
@@ -40,6 +110,16 @@ const docTemplate = `{
                         "description": "Bad request error",
                         "schema": {}
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "majorcommands.CreateMajorCmdDTO": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
                 }
             }
         }

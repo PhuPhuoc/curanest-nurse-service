@@ -1,3 +1,9 @@
+definitions:
+  majorcommands.CreateMajorCmdDTO:
+    properties:
+      name:
+        type: string
+    type: object
 info:
   contact: {}
   description: |-
@@ -9,6 +15,52 @@ info:
   title: Nurse Service
   version: "1.0"
 paths:
+  /api/v1/majors:
+    get:
+      consumes:
+      - application/json
+      description: get major
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: get major
+      tags:
+      - major
+    post:
+      consumes:
+      - application/json
+      description: create new major
+      parameters:
+      - description: account creation data
+        in: body
+        name: form
+        required: true
+        schema:
+          $ref: '#/definitions/majorcommands.CreateMajorCmdDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: create new major - admin
+      tags:
+      - major
   /ping:
     get:
       consumes:

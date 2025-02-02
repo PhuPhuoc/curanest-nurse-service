@@ -12,9 +12,14 @@ import (
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
+	"github.com/PhuPhuoc/curanest-nurse-service/builder"
+	"github.com/PhuPhuoc/curanest-nurse-service/common"
 	"github.com/PhuPhuoc/curanest-nurse-service/config"
 	"github.com/PhuPhuoc/curanest-nurse-service/docs"
 	"github.com/PhuPhuoc/curanest-nurse-service/middleware"
+	majorhttpservice "github.com/PhuPhuoc/curanest-nurse-service/module/major/infars/httpservice"
+	majorcommands "github.com/PhuPhuoc/curanest-nurse-service/module/major/usecase/commands"
+	majorqueries "github.com/PhuPhuoc/curanest-nurse-service/module/major/usecase/queries"
 )
 
 type server struct {
@@ -76,12 +81,22 @@ func (sv *server) RunApp() error {
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	router.GET("/ping", func(c *gin.Context) { c.JSON(http.StatusOK, gin.H{"message": "curanest-nurse-service - pong"}) })
 
-	// authClient := common.NewJWTx(config.AppConfig.Key)
+	authClient := common.NewJWTx(config.AppConfig.Key)
 	// *** usecase: command vs query
+	major_cmd_builder := majorcommands.NewMajorCmdWithBuilder(
+		builder.NewMajorBuilder(sv.db),
+	)
+	major_query_builder := majorqueries.NewMajorQueryWithBuilder(
+		builder.NewMajorBuilder(sv.db),
+	)
 
-	// api := router.Group("/api/v1")
-	// {
-	// }
+	api := router.Group("/api/v1")
+	{
+		majorhttpservice.
+			NewPatientHTTPService(major_cmd_builder, major_query_builder).
+			AddAuth(authClient).
+			Routes(api)
+	}
 
 	// rpc := router.Group("/internal/rpc")
 	// {
