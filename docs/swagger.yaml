@@ -4,6 +4,45 @@ definitions:
       name:
         type: string
     type: object
+  nursecommands.CreateNurseAccountCmdDTO:
+    properties:
+      address:
+        type: string
+      certificate:
+        type: string
+      citizen-id:
+        type: string
+      city:
+        type: string
+      current-work-place:
+        type: string
+      district:
+        type: string
+      dob:
+        type: string
+      education-level:
+        type: string
+      email:
+        type: string
+      experience:
+        type: string
+      full-name:
+        type: string
+      gender:
+        type: boolean
+      google-drive-url:
+        type: string
+      major-id:
+        type: string
+      password:
+        type: string
+      phone-number:
+        type: string
+      slogan:
+        type: string
+      ward:
+        type: string
+    type: object
 info:
   contact: {}
   description: |-
@@ -61,6 +100,55 @@ paths:
       summary: create new major - admin
       tags:
       - major
+  /api/v1/nurses:
+    post:
+      consumes:
+      - application/json
+      description: create nurse account
+      parameters:
+      - description: account creation data
+        in: body
+        name: form
+        required: true
+        schema:
+          $ref: '#/definitions/nursecommands.CreateNurseAccountCmdDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: create nurse account
+      tags:
+      - nurse
+  /api/v1/nurses/me:
+    get:
+      consumes:
+      - application/json
+      description: get nurse profile (me)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: get nurse profile (me)
+      tags:
+      - nurse
   /ping:
     get:
       consumes:

@@ -85,6 +85,83 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/nurses": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "create nurse account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nurse"
+                ],
+                "summary": "create nurse account",
+                "parameters": [
+                    {
+                        "description": "account creation data",
+                        "name": "form",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nursecommands.CreateNurseAccountCmdDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/api/v1/nurses/me": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get nurse profile (me)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nurse"
+                ],
+                "summary": "get nurse profile (me)",
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/ping": {
             "get": {
                 "description": "ping server",
@@ -119,6 +196,65 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "nursecommands.CreateNurseAccountCmdDTO": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "certificate": {
+                    "type": "string"
+                },
+                "citizen-id": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "current-work-place": {
+                    "type": "string"
+                },
+                "district": {
+                    "type": "string"
+                },
+                "dob": {
+                    "type": "string"
+                },
+                "education-level": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "experience": {
+                    "type": "string"
+                },
+                "full-name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "boolean"
+                },
+                "google-drive-url": {
+                    "type": "string"
+                },
+                "major-id": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone-number": {
+                    "type": "string"
+                },
+                "slogan": {
+                    "type": "string"
+                },
+                "ward": {
                     "type": "string"
                 }
             }

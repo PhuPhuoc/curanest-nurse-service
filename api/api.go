@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -20,6 +19,9 @@ import (
 	majorhttpservice "github.com/PhuPhuoc/curanest-nurse-service/module/major/infars/httpservice"
 	majorcommands "github.com/PhuPhuoc/curanest-nurse-service/module/major/usecase/commands"
 	majorqueries "github.com/PhuPhuoc/curanest-nurse-service/module/major/usecase/queries"
+	nursehttpservice "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/infars/httpservice"
+	nursecommands "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/usecase/commands"
+	nursequeries "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/usecase/queries"
 )
 
 type server struct {
@@ -64,7 +66,6 @@ func (sv *server) RunApp() error {
 		docs.SwaggerInfo.BasePath = "/nurse"
 		urlAccServices = urlacc_prod
 	}
-	fmt.Println(urlAccServices)
 
 	router := gin.New()
 
@@ -90,10 +91,22 @@ func (sv *server) RunApp() error {
 		builder.NewMajorBuilder(sv.db),
 	)
 
+	nurse_cmd_builder := nursecommands.NewNurseCmdWithBuilder(
+		builder.NewNurseBuilder(sv.db).AddUrlPathAccountService(urlAccServices),
+	)
+	nurse_query_builer := nursequeries.NewNurseQueryWithBuilder(
+		builder.NewNurseBuilder(sv.db).AddUrlPathAccountService(urlAccServices),
+	)
+
 	api := router.Group("/api/v1")
 	{
 		majorhttpservice.
 			NewPatientHTTPService(major_cmd_builder, major_query_builder).
+			AddAuth(authClient).
+			Routes(api)
+
+		nursehttpservice.
+			NewPatientHTTPService(nurse_cmd_builder, nurse_query_builer).
 			AddAuth(authClient).
 			Routes(api)
 	}
