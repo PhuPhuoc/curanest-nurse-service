@@ -24,7 +24,7 @@ func (s *nurseHttpService) handleCreateNurseAccount() gin.HandlerFunc {
 			return
 		}
 
-		if err := s.command.CreateNurse.Handle(ctx, &dto); err != nil {
+		if err := s.command.CreateNurse.Handle(ctx.Request.Context(), &dto); err != nil {
 			common.ResponseError(ctx, err)
 			return
 		}

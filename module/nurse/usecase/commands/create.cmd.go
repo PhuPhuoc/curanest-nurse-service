@@ -40,14 +40,15 @@ func (h *createNurseAccountHandler) Handle(ctx context.Context, dto *CreateNurse
 		return common.NewInternalServerError().
 			WithReason("cannot create account for relatives - cannot get account id")
 	}
+	accid := uuid.MustParse(resp.Id)
 
 	majorid, err := uuid.Parse(dto.MajorId)
 	if err != nil {
+		_ = h.accService.HardDeleteAccountProfileRPC(ctx, accid.String())
 		return common.NewBadRequestError().WithReason("your major-id is invalid - it must be a uuid")
 	}
 
 	// 2. create record in table relatives
-	accid := uuid.MustParse(resp.Id)
 	entity, _ := nursedomain.NewNurse(
 		accid,
 		majorid,
@@ -67,6 +68,7 @@ func (h *createNurseAccountHandler) Handle(ctx context.Context, dto *CreateNurse
 		"",
 	)
 	if err = h.cmdRepo.Create(ctx, entity); err != nil {
+		_ = h.accService.HardDeleteAccountProfileRPC(ctx, accid.String())
 		return common.NewInternalServerError().
 			WithReason("cannot create relatives info").
 			WithInner(err.Error())

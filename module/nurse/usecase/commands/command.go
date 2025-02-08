@@ -29,4 +29,5 @@ type NurseCommandRepo interface {
 }
 type ExternalAccountService interface {
 	CreateAccountRPC(ctx context.Context, entity *AccountInfoDTO) (*ResponseCreateAccountDTO, error)
+	HardDeleteAccountProfileRPC(ctx context.Context, accId string) error
 }
