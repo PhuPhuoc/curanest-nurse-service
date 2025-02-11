@@ -162,6 +162,48 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/nurses/{nurse-id}/staff": {
+            "patch": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "update nurse to staff of major",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nurse"
+                ],
+                "summary": "update nurse to staff of major",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Account ID (UUID)",
+                        "name": "nurse-id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/ping": {
             "get": {
                 "description": "ping server",

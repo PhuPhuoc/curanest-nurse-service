@@ -12,6 +12,7 @@ var (
 	FIELD = []string{
 		"id",
 		"major_id",
+		"nurse_name",
 		"gender",
 		"citizen_id",
 		"dob",
@@ -30,6 +31,7 @@ var (
 
 	UPDATE_FIELD = []string{
 		"major_id",
+		"nurse_name",
 		"gender",
 		"citizen_id",
 		"dob",
@@ -45,12 +47,25 @@ var (
 		"slogan",
 		"rate",
 	}
+
+	STAFF_TABLE = `majors_staffs`
+
+	STAFF_FIELD = []string{
+		"major_id",
+		"staff_id",
+	}
 )
+
+type MajorStaff struct {
+	MajorId uuid.UUID `db:"major_id"`
+	StaffId uuid.UUID `db:"staff_id"`
+}
 
 type NurseDTO struct {
 	Id               uuid.UUID `db:"id"`
 	MajorID          uuid.UUID `db:"major_id"`
 	Gender           bool      `db:"gender"`
+	NurseName        string    `db:"nurse_name"`
 	CitizenID        string    `db:"citizen_id"`
 	Dob              string    `db:"dob"`
 	Address          string    `db:"address"`
@@ -71,6 +86,7 @@ func (dto *NurseDTO) ToEntity() (*nursedomain.Nurse, error) {
 		dto.Id,
 		dto.MajorID,
 		dto.Gender,
+		dto.NurseName,
 		dto.CitizenID,
 		dto.Dob,
 		dto.Address,
@@ -92,6 +108,7 @@ func ToDTO(data *nursedomain.Nurse) *NurseDTO {
 		Id:               data.GetID(),
 		MajorID:          data.GetMajorID(),
 		Gender:           data.GetGender(),
+		NurseName:        data.GetNurseName(),
 		CitizenID:        data.GetCitizenID(),
 		Dob:              data.GetDOB(),
 		Address:          data.GetAddress(),

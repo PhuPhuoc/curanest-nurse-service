@@ -12,8 +12,10 @@ const (
 	UPDATE
 	FIND
 	FIND_WITH_CREATED_AT
-	DELETE
+	SOFT_DELETE
+	HARD_DELETE
 	SELECT_WITHOUT_COUNT
+	SELECT_EXIST
 )
 
 func (r SQLMethod) String() string {
@@ -41,8 +43,12 @@ func GenerateSQLQueries(method SQLMethod, table string, fields []string, where *
 		return fmt.Sprintf("SELECT %s FROM %s WHERE %s", selectList, table, *where)
 	case SELECT_WITHOUT_COUNT:
 		return fmt.Sprintf("SELECT %s FROM %s ", fieldList, table)
-	case DELETE:
+	case SOFT_DELETE:
 		return fmt.Sprintf("UPDATE %s SET deleted_at = NOW() WHERE %s", table, *where)
+	case HARD_DELETE:
+		return fmt.Sprintf("DELETE FROM %s WHERE %s", table, *where)
+	case SELECT_EXIST:
+		return fmt.Sprintf("SELECT EXISTS (SELECT 1 FROM %s WHERE %s)", table, *where)
 	}
 	return ""
 }

@@ -2,6 +2,7 @@ package nursequeries
 
 import (
 	"context"
+	"errors"
 
 	"github.com/PhuPhuoc/curanest-nurse-service/common"
 )
@@ -26,8 +27,11 @@ func (h *getMyProfileHandler) Handle(ctx context.Context) (*ResponseProfileDTO, 
 
 	reldto, err := h.queryRepo.FindById(ctx, accdto.Id)
 	if err != nil {
+		if errors.Is(err, common.ErrRecordNotFound) {
+			return nil, common.NewBadRequestError().WithReason("nurse-id not found")
+		}
 		return nil, common.NewInternalServerError().
-			WithReason("cannot relatives info").WithInner(err.Error())
+			WithReason("cannot get nurse info").WithInner(err.Error())
 	}
 
 	resp := &ResponseProfileDTO{

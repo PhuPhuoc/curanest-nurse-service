@@ -9,7 +9,9 @@ import (
 )
 
 type Queries struct {
-	GetMe *getMyProfileHandler
+	GetMe        *getMyProfileHandler
+	GetById      *getByIdHandler
+	IsNurseStaff *isNurseStaffHandler
 }
 
 type Builder interface {
@@ -23,11 +25,18 @@ func NewNurseQueryWithBuilder(b Builder) Queries {
 			b.BuildNurseQueryRepo(),
 			b.BuildExternalAccountServiceInQuery(),
 		),
+		GetById: NewGetByIdHandler(
+			b.BuildNurseQueryRepo(),
+		),
+		IsNurseStaff: NewIsNurseStaffHandler(
+			b.BuildNurseQueryRepo(),
+		),
 	}
 }
 
 type NurseQueryRepo interface {
 	FindById(ctx context.Context, id uuid.UUID) (*nursedomain.Nurse, error)
+	IsStaffExisted(ctx context.Context, staffId uuid.UUID) (bool, error)
 }
 
 type ExternalAccountService interface {

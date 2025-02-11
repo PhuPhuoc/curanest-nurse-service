@@ -53,6 +53,7 @@ func (h *createNurseAccountHandler) Handle(ctx context.Context, dto *CreateNurse
 		accid,
 		majorid,
 		dto.Gender,
+		dto.FullName,
 		dto.CitizenId,
 		dto.Dob,
 		dto.Address,

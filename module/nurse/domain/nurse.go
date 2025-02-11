@@ -7,6 +7,7 @@ type Nurse struct {
 	id                 uuid.UUID
 	major_id           uuid.UUID
 	gender             bool
+	nurse_name         string
 	citizen_id         string
 	dob                string
 	address            string
@@ -29,6 +30,10 @@ func (n *Nurse) GetID() uuid.UUID {
 
 func (n *Nurse) GetMajorID() uuid.UUID {
 	return n.major_id
+}
+
+func (n *Nurse) GetNurseName() string {
+	return n.nurse_name
 }
 
 func (n *Nurse) GetGender() bool {
@@ -92,6 +97,7 @@ func NewNurse(
 	id uuid.UUID,
 	majorID uuid.UUID,
 	gender bool,
+	nurseName string,
 	citizenID string,
 	dob string,
 	address string,
@@ -110,6 +116,7 @@ func NewNurse(
 		id:                 id,
 		major_id:           majorID,
 		gender:             gender,
+		nurse_name:         nurseName,
 		citizen_id:         citizenID,
 		dob:                dob,
 		address:            address,

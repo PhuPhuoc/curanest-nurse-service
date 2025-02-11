@@ -128,6 +128,33 @@ paths:
       summary: create nurse account
       tags:
       - nurse
+  /api/v1/nurses/{nurse-id}/staff:
+    patch:
+      consumes:
+      - application/json
+      description: update nurse to staff of major
+      parameters:
+      - description: Account ID (UUID)
+        in: path
+        name: nurse-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: update nurse to staff of major
+      tags:
+      - nurse
   /api/v1/nurses/me:
     get:
       consumes:

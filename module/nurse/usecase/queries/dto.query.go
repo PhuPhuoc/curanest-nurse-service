@@ -23,23 +23,27 @@ type ResponseAccountDTO struct {
 	CreatedAt   time.Time `json:"created-at"`
 }
 type NurseInfoDTO struct {
-	Gender           bool   `json:"gender"`
-	Dob              string `json:"dob"`
-	Address          string `json:"address"`
-	Ward             string `json:"ward"`
-	District         string `json:"district"`
-	City             string `json:"city"`
-	CurrentWorkPlace string `json:"current-work-place"`
-	EducationLevel   string `json:"education-level"`
-	Experience       string `json:"experience"`
-	Certificate      string `json:"certificate"`
-	Google_Drive_URL string `json:"google-drive-url"`
-	Slogan           string `json:"slogan"`
-	Rate             string `json:"rate"`
+	MajorId          uuid.UUID `json:"major-id"`
+	NurseName        string    `json:"nurse-name"`
+	Gender           bool      `json:"gender"`
+	Dob              string    `json:"dob"`
+	Address          string    `json:"address"`
+	Ward             string    `json:"ward"`
+	District         string    `json:"district"`
+	City             string    `json:"city"`
+	CurrentWorkPlace string    `json:"current-work-place"`
+	EducationLevel   string    `json:"education-level"`
+	Experience       string    `json:"experience"`
+	Certificate      string    `json:"certificate"`
+	Google_Drive_URL string    `json:"google-drive-url"`
+	Slogan           string    `json:"slogan"`
+	Rate             string    `json:"rate"`
 }
 
 func toDTO(data *nursedomain.Nurse) *NurseInfoDTO {
 	dto := &NurseInfoDTO{
+		MajorId:          data.GetMajorID(),
+		NurseName:        data.GetNurseName(),
 		Gender:           data.GetGender(),
 		Dob:              data.GetDOB(),
 		Address:          data.GetAddress(),
