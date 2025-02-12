@@ -19,11 +19,12 @@ type ResponseAccountDTO struct {
 	FullName    string    `json:"full-name"`
 	Email       string    `json:"email"`
 	PhoneNumber string    `json:"phone-number"`
-	Avatar      string    `json:"avatar"`
 	CreatedAt   time.Time `json:"created-at"`
 }
+
 type NurseInfoDTO struct {
 	MajorId          uuid.UUID `json:"major-id"`
+	NursePicture     string    `json:"nurse-picture"`
 	NurseName        string    `json:"nurse-name"`
 	Gender           bool      `json:"gender"`
 	Dob              string    `json:"dob"`
@@ -43,6 +44,7 @@ type NurseInfoDTO struct {
 func toDTO(data *nursedomain.Nurse) *NurseInfoDTO {
 	dto := &NurseInfoDTO{
 		MajorId:          data.GetMajorID(),
+		NursePicture:     data.GetNursePicture(),
 		NurseName:        data.GetNurseName(),
 		Gender:           data.GetGender(),
 		Dob:              data.GetDOB(),

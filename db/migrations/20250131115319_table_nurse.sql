@@ -3,6 +3,7 @@
 CREATE TABLE `nurses` (
     `id` varchar(36) NOT NULL,
     `major_id` varchar(36) NOT NULL,
+    `nurse_picture` varchar(300),
     `nurse_name` varchar(70),
     `citizen_id` varchar(36) NOT NULL,
     `gender` bool NOT NULL,

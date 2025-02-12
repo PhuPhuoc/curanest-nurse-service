@@ -287,6 +287,9 @@ const docTemplate = `{
                 "major-id": {
                     "type": "string"
                 },
+                "nurse-picture": {
+                    "type": "string"
+                },
                 "password": {
                     "type": "string"
                 },

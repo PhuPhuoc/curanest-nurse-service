@@ -7,6 +7,7 @@ type Nurse struct {
 	id                 uuid.UUID
 	major_id           uuid.UUID
 	gender             bool
+	nurse_picture      string
 	nurse_name         string
 	citizen_id         string
 	dob                string
@@ -30,6 +31,10 @@ func (n *Nurse) GetID() uuid.UUID {
 
 func (n *Nurse) GetMajorID() uuid.UUID {
 	return n.major_id
+}
+
+func (n *Nurse) GetNursePicture() string {
+	return n.nurse_picture
 }
 
 func (n *Nurse) GetNurseName() string {
@@ -97,6 +102,7 @@ func NewNurse(
 	id uuid.UUID,
 	majorID uuid.UUID,
 	gender bool,
+	nursePicture string,
 	nurseName string,
 	citizenID string,
 	dob string,
@@ -116,6 +122,7 @@ func NewNurse(
 		id:                 id,
 		major_id:           majorID,
 		gender:             gender,
+		nurse_picture:      nursePicture,
 		nurse_name:         nurseName,
 		citizen_id:         citizenID,
 		dob:                dob,
@@ -131,10 +138,6 @@ func NewNurse(
 		slogan:             slogan,
 		rate:               rate,
 	}
-
-	// if nurse.id == uuid.Nil {
-	// 	return nil, errors.New("invalid nurse ID")
-	// }
 
 	return nurse, nil
 }
