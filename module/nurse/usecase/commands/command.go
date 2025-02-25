@@ -34,7 +34,7 @@ func NewNurseCmdWithBuilder(b Builder) Commands {
 type NurseCommandRepo interface {
 	Create(ctx context.Context, entity *nursedomain.Nurse) error
 
-	UpdateNurseToStaff(ctx context.Context, nurseId uuid.UUID, majorId uuid.UUID) error
+	UpdateNurseToStaff(ctx context.Context, nurseId uuid.UUID, categoryId uuid.UUID) error
 	UpdateStaffToNurse(ctx context.Context, nurseId uuid.UUID) error
 }
 type ExternalAccountService interface {

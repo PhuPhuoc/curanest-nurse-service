@@ -1,8 +1,7 @@
 -- +goose Up
 -- +goose StatementBegin
-CREATE TABLE `nurses` (
+CREATE TABLE `nursing` (
     `id` varchar(36) NOT NULL,
-    `major_id` varchar(36) NOT NULL,
     `nurse_picture` varchar(300),
     `nurse_name` varchar(70),
     `citizen_id` varchar(36) NOT NULL,
@@ -20,12 +19,11 @@ CREATE TABLE `nurses` (
     `rate` text,
     `slogan` text,
     PRIMARY KEY (`id`),
-    UNIQUE KEY `unique_citizen_id` (`citizen_id`),
-    CONSTRAINT `fk_major_nurse` FOREIGN KEY (`major_id`) REFERENCES `majors` (`id`) ON UPDATE CASCADE
+    UNIQUE KEY `unique_citizen_id` (`citizen_id`)
 );
 -- +goose StatementEnd
 
 -- +goose Down
 -- +goose StatementBegin
-DROP TABLE IF EXISTS `nurses`;
+DROP TABLE IF EXISTS `nursing`;
 -- +goose StatementEnd

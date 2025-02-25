@@ -1,9 +1,4 @@
 definitions:
-  majorcommands.CreateMajorCmdDTO:
-    properties:
-      name:
-        type: string
-    type: object
   nursecommands.CreateNurseAccountCmdDTO:
     properties:
       address:
@@ -32,8 +27,6 @@ definitions:
         type: boolean
       google-drive-url:
         type: string
-      major-id:
-        type: string
       nurse-picture:
         type: string
       password:
@@ -56,52 +49,6 @@ info:
   title: Nurse Service
   version: "1.0"
 paths:
-  /api/v1/majors:
-    get:
-      consumes:
-      - application/json
-      description: get major
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: data
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad request error
-          schema: {}
-      summary: get major
-      tags:
-      - major
-    post:
-      consumes:
-      - application/json
-      description: create new major
-      parameters:
-      - description: account creation data
-        in: body
-        name: form
-        required: true
-        schema:
-          $ref: '#/definitions/majorcommands.CreateMajorCmdDTO'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: data
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad request error
-          schema: {}
-      security:
-      - ApiKeyAuth: []
-      summary: create new major - admin
-      tags:
-      - major
   /api/v1/nurses:
     post:
       consumes:
@@ -128,33 +75,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: create nurse account
-      tags:
-      - nurse
-  /api/v1/nurses/{nurse-id}/staff:
-    patch:
-      consumes:
-      - application/json
-      description: update nurse to staff of major
-      parameters:
-      - description: Account ID (UUID)
-        in: path
-        name: nurse-id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: data
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad request error
-          schema: {}
-      security:
-      - ApiKeyAuth: []
-      summary: update nurse to staff of major
       tags:
       - nurse
   /api/v1/nurses/me:

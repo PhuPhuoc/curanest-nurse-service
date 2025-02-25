@@ -23,8 +23,8 @@ type UpdateRoleRequestRPC struct {
 	Role string `json:"role"`
 }
 
-func (h *updateNurseToStaffHandler) Handle(ctx context.Context, nurseId uuid.UUID, majorId uuid.UUID) error {
-	if err := h.cmdRepo.UpdateNurseToStaff(ctx, nurseId, majorId); err != nil {
+func (h *updateNurseToStaffHandler) Handle(ctx context.Context, nurseId uuid.UUID, categoryId uuid.UUID) error {
+	if err := h.cmdRepo.UpdateNurseToStaff(ctx, nurseId, categoryId); err != nil {
 		return common.NewInternalServerError().
 			WithReason("cannot convert nurse to staff").WithInner(err.Error())
 	}

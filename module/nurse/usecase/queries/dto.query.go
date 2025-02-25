@@ -23,7 +23,7 @@ type ResponseAccountDTO struct {
 }
 
 type NurseInfoDTO struct {
-	MajorId          uuid.UUID `json:"major-id"`
+	NurseId          uuid.UUID `json:"nurse-id"`
 	NursePicture     string    `json:"nurse-picture"`
 	NurseName        string    `json:"nurse-name"`
 	Gender           bool      `json:"gender"`
@@ -43,7 +43,7 @@ type NurseInfoDTO struct {
 
 func toDTO(data *nursedomain.Nurse) *NurseInfoDTO {
 	dto := &NurseInfoDTO{
-		MajorId:          data.GetMajorID(),
+		NurseId:          data.GetID(),
 		NursePicture:     data.GetNursePicture(),
 		NurseName:        data.GetNurseName(),
 		Gender:           data.GetGender(),
@@ -57,6 +57,27 @@ func toDTO(data *nursedomain.Nurse) *NurseInfoDTO {
 		Experience:       data.GetExperience(),
 		Certificate:      data.GetCertificate(),
 		Google_Drive_URL: data.GetGoogleDriveURL(),
+		Slogan:           data.GetSlogan(),
+		Rate:             data.GetRate(),
+	}
+	return dto
+}
+
+type UpdateNurseDTO struct {
+	NursePicture     string `json:"nurse-picture"`
+	NurseName        string `json:"nurse-name"`
+	Gender           bool   `json:"gender"`
+	CurrentWorkPlace string `json:"current-work-place"`
+	Slogan           string `json:"slogan"`
+	Rate             string `json:"rate"`
+}
+
+func toUpdateNurseDTO(data *nursedomain.Nurse) *UpdateNurseDTO {
+	dto := &UpdateNurseDTO{
+		NursePicture:     data.GetNursePicture(),
+		NurseName:        data.GetNurseName(),
+		Gender:           data.GetGender(),
+		CurrentWorkPlace: data.GetCurrentWorkPlace(),
 		Slogan:           data.GetSlogan(),
 		Rate:             data.GetRate(),
 	}

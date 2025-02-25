@@ -7,11 +7,10 @@ import (
 )
 
 var (
-	TABLE = `nurses`
+	TABLE = `nursing`
 
 	FIELD = []string{
 		"id",
-		"major_id",
 		"nurse_picture",
 		"nurse_name",
 		"gender",
@@ -50,22 +49,21 @@ var (
 		"rate",
 	}
 
-	STAFF_TABLE = `majors_staffs`
+	STAFF_TABLE = `staff_category`
 
 	STAFF_FIELD = []string{
-		"major_id",
 		"staff_id",
+		"category_id",
 	}
 )
 
 type MajorStaff struct {
-	MajorId uuid.UUID `db:"major_id"`
-	StaffId uuid.UUID `db:"staff_id"`
+	StaffId    uuid.UUID `db:"staff_id"`
+	CategoryId uuid.UUID `db:"category_id"`
 }
 
 type NurseDTO struct {
 	Id               uuid.UUID `db:"id"`
-	MajorID          uuid.UUID `db:"major_id"`
 	Gender           bool      `db:"gender"`
 	NursePicture     string    `db:"nurse_picture"`
 	NurseName        string    `db:"nurse_name"`
@@ -87,7 +85,6 @@ type NurseDTO struct {
 func (dto *NurseDTO) ToEntity() (*nursedomain.Nurse, error) {
 	return nursedomain.NewNurse(
 		dto.Id,
-		dto.MajorID,
 		dto.Gender,
 		dto.NursePicture,
 		dto.NurseName,
@@ -110,7 +107,6 @@ func (dto *NurseDTO) ToEntity() (*nursedomain.Nurse, error) {
 func ToDTO(data *nursedomain.Nurse) *NurseDTO {
 	return &NurseDTO{
 		Id:               data.GetID(),
-		MajorID:          data.GetMajorID(),
 		Gender:           data.GetGender(),
 		NursePicture:     data.GetNursePicture(),
 		NurseName:        data.GetNurseName(),

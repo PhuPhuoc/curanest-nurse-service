@@ -15,76 +15,6 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/majors": {
-            "get": {
-                "description": "get major",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "major"
-                ],
-                "summary": "get major",
-                "responses": {
-                    "200": {
-                        "description": "data",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request error",
-                        "schema": {}
-                    }
-                }
-            },
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "create new major",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "major"
-                ],
-                "summary": "create new major - admin",
-                "parameters": [
-                    {
-                        "description": "account creation data",
-                        "name": "form",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/majorcommands.CreateMajorCmdDTO"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "data",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request error",
-                        "schema": {}
-                    }
-                }
-            }
-        },
         "/api/v1/nurses": {
             "post": {
                 "security": [
@@ -162,48 +92,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/nurses/{nurse-id}/staff": {
-            "patch": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "update nurse to staff of major",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "nurse"
-                ],
-                "summary": "update nurse to staff of major",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Account ID (UUID)",
-                        "name": "nurse-id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "data",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request error",
-                        "schema": {}
-                    }
-                }
-            }
-        },
         "/ping": {
             "get": {
                 "description": "ping server",
@@ -234,14 +122,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "majorcommands.CreateMajorCmdDTO": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
         "nursecommands.CreateNurseAccountCmdDTO": {
             "type": "object",
             "properties": {
@@ -282,9 +162,6 @@ const docTemplate = `{
                     "type": "boolean"
                 },
                 "google-drive-url": {
-                    "type": "string"
-                },
-                "major-id": {
                     "type": "string"
                 },
                 "nurse-picture": {

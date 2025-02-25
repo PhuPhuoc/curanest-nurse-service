@@ -16,9 +16,6 @@ import (
 	"github.com/PhuPhuoc/curanest-nurse-service/config"
 	"github.com/PhuPhuoc/curanest-nurse-service/docs"
 	"github.com/PhuPhuoc/curanest-nurse-service/middleware"
-	majorhttpservice "github.com/PhuPhuoc/curanest-nurse-service/module/major/infars/httpservice"
-	majorcommands "github.com/PhuPhuoc/curanest-nurse-service/module/major/usecase/commands"
-	majorqueries "github.com/PhuPhuoc/curanest-nurse-service/module/major/usecase/queries"
 	nursehttpservice "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/infars/httpservice"
 	nursecommands "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/usecase/commands"
 	nursequeries "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/usecase/queries"
@@ -84,13 +81,6 @@ func (sv *server) RunApp() error {
 
 	authClient := common.NewJWTx(config.AppConfig.Key)
 	// *** usecase: command vs query
-	major_cmd_builder := majorcommands.NewMajorCmdWithBuilder(
-		builder.NewMajorBuilder(sv.db),
-	)
-	major_query_builder := majorqueries.NewMajorQueryWithBuilder(
-		builder.NewMajorBuilder(sv.db),
-	)
-
 	nurse_cmd_builder := nursecommands.NewNurseCmdWithBuilder(
 		builder.NewNurseBuilder(sv.db).AddUrlPathAccountService(urlAccServices),
 	)
@@ -100,11 +90,6 @@ func (sv *server) RunApp() error {
 
 	api := router.Group("/api/v1")
 	{
-		majorhttpservice.
-			NewPatientHTTPService(major_cmd_builder, major_query_builder).
-			AddAuth(authClient).
-			Routes(api)
-
 		nursehttpservice.
 			NewPatientHTTPService(nurse_cmd_builder, nurse_query_builer).
 			AddAuth(authClient).

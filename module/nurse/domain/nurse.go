@@ -5,7 +5,6 @@ import "github.com/google/uuid"
 // Nurse struct
 type Nurse struct {
 	id                 uuid.UUID
-	major_id           uuid.UUID
 	gender             bool
 	nurse_picture      string
 	nurse_name         string
@@ -27,10 +26,6 @@ type Nurse struct {
 // Các hàm getter
 func (n *Nurse) GetID() uuid.UUID {
 	return n.id
-}
-
-func (n *Nurse) GetMajorID() uuid.UUID {
-	return n.major_id
 }
 
 func (n *Nurse) GetNursePicture() string {
@@ -100,7 +95,6 @@ func (n *Nurse) GetRate() string {
 // Hàm khởi tạo Nurse
 func NewNurse(
 	id uuid.UUID,
-	majorID uuid.UUID,
 	gender bool,
 	nursePicture string,
 	nurseName string,
@@ -120,7 +114,6 @@ func NewNurse(
 ) (*Nurse, error) {
 	nurse := &Nurse{
 		id:                 id,
-		major_id:           majorID,
 		gender:             gender,
 		nurse_picture:      nursePicture,
 		nurse_name:         nurseName,

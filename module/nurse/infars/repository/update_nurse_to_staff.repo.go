@@ -8,11 +8,11 @@ import (
 	"github.com/PhuPhuoc/curanest-nurse-service/common"
 )
 
-func (repo *nurseRepo) UpdateNurseToStaff(ctx context.Context, nurseId uuid.UUID, majorId uuid.UUID) error {
+func (repo *nurseRepo) UpdateNurseToStaff(ctx context.Context, nurseId uuid.UUID, categoryId uuid.UUID) error {
 	query := common.GenerateSQLQueries(common.INSERT, STAFF_TABLE, STAFF_FIELD, nil)
 	dto := &MajorStaff{
-		majorId,
 		nurseId,
+		categoryId,
 	}
 
 	if _, err := repo.db.NamedExecContext(ctx, query, dto); err != nil {

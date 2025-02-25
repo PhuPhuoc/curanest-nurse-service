@@ -1,7 +1,6 @@
 package nursecommands
 
 type CreateNurseAccountCmdDTO struct {
-	MajorId          string `json:"major-id"`
 	NursePicture     string `json:"nurse-picture"`
 	FullName         string `json:"full-name"`
 	CitizenId        string `json:"citizen-id"`
