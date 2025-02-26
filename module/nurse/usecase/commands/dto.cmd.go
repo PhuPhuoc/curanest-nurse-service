@@ -1,5 +1,7 @@
 package nursecommands
 
+import "github.com/google/uuid"
+
 type CreateNurseAccountCmdDTO struct {
 	NursePicture     string `json:"nurse-picture"`
 	FullName         string `json:"full-name"`
@@ -31,4 +33,8 @@ type AccountInfoDTO struct {
 
 type ResponseCreateAccountDTO struct {
 	Id string `json:"id"`
+}
+
+type MapNursingServiceDTO struct {
+	ServiceIds []uuid.UUID `json:"service-ids"`
 }

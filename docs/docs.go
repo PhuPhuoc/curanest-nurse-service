@@ -92,6 +92,97 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/nurses/{nurse-id}/services": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get service of nursing",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nurse"
+                ],
+                "summary": "get service of nursing",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nursing ID (UUID)",
+                        "name": "nurse-id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "map service with nursing",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nurse"
+                ],
+                "summary": "map service with nursing",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nursing ID (UUID)",
+                        "name": "nurse-id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "account creation data",
+                        "name": "form",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nursecommands.MapNursingServiceDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/ping": {
             "get": {
                 "description": "ping server",
@@ -178,6 +269,17 @@ const docTemplate = `{
                 },
                 "ward": {
                     "type": "string"
+                }
+            }
+        },
+        "nursecommands.MapNursingServiceDTO": {
+            "type": "object",
+            "properties": {
+                "service-ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         }

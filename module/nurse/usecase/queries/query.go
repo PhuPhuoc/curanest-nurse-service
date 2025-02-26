@@ -9,9 +9,10 @@ import (
 )
 
 type Queries struct {
-	GetMe        *getMyProfileHandler
-	GetById      *getByIdHandler
-	IsNurseStaff *isNurseStaffHandler
+	GetMe   *getMyProfileHandler
+	GetById *getByIdHandler
+
+	GetNusingServiceIds *getNursingServiceHandler
 }
 
 type Builder interface {
@@ -28,7 +29,8 @@ func NewNurseQueryWithBuilder(b Builder) Queries {
 		GetById: NewGetByIdHandler(
 			b.BuildNurseQueryRepo(),
 		),
-		IsNurseStaff: NewIsNurseStaffHandler(
+
+		GetNusingServiceIds: NewGetNursingServiceHandler(
 			b.BuildNurseQueryRepo(),
 		),
 	}
@@ -36,7 +38,8 @@ func NewNurseQueryWithBuilder(b Builder) Queries {
 
 type NurseQueryRepo interface {
 	FindById(ctx context.Context, id uuid.UUID) (*nursedomain.Nurse, error)
-	IsStaffExisted(ctx context.Context, staffId uuid.UUID) (bool, error)
+
+	GetNurseService(ctx context.Context, nurseId uuid.UUID) ([]uuid.UUID, error)
 }
 
 type ExternalAccountService interface {

@@ -40,11 +40,17 @@ func (s *nurseHttpService) Routes(g *gin.RouterGroup) {
 			middleware.RequireAuth(s.auth),
 			s.handleGetMe(),
 		)
-		// nurse_route.PATCH(
-		// 	":nurse-id/staff",
-		// 	middleware.RequireAuth(s.auth),
-		// 	middleware.RequireRole("admin"),
-		// 	s.handleUpdateNurseToStaff(),
-		// )
+		nurse_route.POST(
+			"/:nurse-id/services",
+			middleware.RequireAuth(s.auth),
+			middleware.RequireRole("admin"),
+			s.handleMapNursingServices(),
+		)
+		nurse_route.GET(
+			"/:nurse-id/services",
+			middleware.RequireAuth(s.auth),
+			middleware.RequireRole("admin"),
+			s.handleGetNursingServices(),
+		)
 	}
 }

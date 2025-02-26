@@ -38,6 +38,13 @@ definitions:
       ward:
         type: string
     type: object
+  nursecommands.MapNursingServiceDTO:
+    properties:
+      service-ids:
+        items:
+          type: string
+        type: array
+    type: object
 info:
   contact: {}
   description: |-
@@ -75,6 +82,65 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: create nurse account
+      tags:
+      - nurse
+  /api/v1/nurses/{nurse-id}/services:
+    get:
+      consumes:
+      - application/json
+      description: get service of nursing
+      parameters:
+      - description: Nursing ID (UUID)
+        in: path
+        name: nurse-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: get service of nursing
+      tags:
+      - nurse
+    post:
+      consumes:
+      - application/json
+      description: map service with nursing
+      parameters:
+      - description: Nursing ID (UUID)
+        in: path
+        name: nurse-id
+        required: true
+        type: string
+      - description: account creation data
+        in: body
+        name: form
+        required: true
+        schema:
+          $ref: '#/definitions/nursecommands.MapNursingServiceDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: map service with nursing
       tags:
       - nurse
   /api/v1/nurses/me:

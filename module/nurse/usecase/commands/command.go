@@ -9,8 +9,9 @@ import (
 )
 
 type Commands struct {
-	CreateNurse        *createNurseAccountHandler
-	UpdateNurseToStaff *updateNurseToStaffHandler
+	CreateNurse *createNurseAccountHandler
+
+	MapNurseService *mapNurseServiceHandler
 }
 
 type Builder interface {
@@ -24,9 +25,9 @@ func NewNurseCmdWithBuilder(b Builder) Commands {
 			b.BuildNurseCmdRepo(),
 			b.BuildExternalAccountServiceInCmd(),
 		),
-		UpdateNurseToStaff: NewUpdateNurseToStaffHandler(
+
+		MapNurseService: NewMapNurseServiceHandler(
 			b.BuildNurseCmdRepo(),
-			b.BuildExternalAccountServiceInCmd(),
 		),
 	}
 }
@@ -34,11 +35,10 @@ func NewNurseCmdWithBuilder(b Builder) Commands {
 type NurseCommandRepo interface {
 	Create(ctx context.Context, entity *nursedomain.Nurse) error
 
-	UpdateNurseToStaff(ctx context.Context, nurseId uuid.UUID, categoryId uuid.UUID) error
-	UpdateStaffToNurse(ctx context.Context, nurseId uuid.UUID) error
+	// map nursing with services
+	MapNurseService(ctx context.Context, nurseId uuid.UUID, serviceIds []uuid.UUID) error
 }
 type ExternalAccountService interface {
 	CreateAccountRPC(ctx context.Context, entity *AccountInfoDTO) (*ResponseCreateAccountDTO, error)
 	HardDeleteAccountProfileRPC(ctx context.Context, accId string) error
-	UpdateRoleNurseToStaffRPC(ctx context.Context, accId uuid.UUID, payload *UpdateRoleRequestRPC) error
 }

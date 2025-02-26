@@ -83,3 +83,7 @@ func toUpdateNurseDTO(data *nursedomain.Nurse) *UpdateNurseDTO {
 	}
 	return dto
 }
+
+type NursingServiceDTO struct {
+	ServiceIds []uuid.UUID `json:"service-ids"`
+}
