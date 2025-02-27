@@ -91,7 +91,7 @@ func (sv *server) RunApp() error {
 	api := router.Group("/api/v1")
 	{
 		nursehttpservice.
-			NewPatientHTTPService(nurse_cmd_builder, nurse_query_builer).
+			NewNurseHTTPService(nurse_cmd_builder, nurse_query_builer).
 			AddAuth(authClient).
 			Routes(api)
 	}

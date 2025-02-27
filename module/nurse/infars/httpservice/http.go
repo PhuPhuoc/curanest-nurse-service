@@ -14,7 +14,7 @@ type nurseHttpService struct {
 	auth    middleware.AuthClient
 }
 
-func NewPatientHTTPService(command nursecommands.Commands, query nursequeries.Queries) *nurseHttpService {
+func NewNurseHTTPService(command nursecommands.Commands, query nursequeries.Queries) *nurseHttpService {
 	return &nurseHttpService{
 		command: command,
 		query:   query,
