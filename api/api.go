@@ -17,6 +17,7 @@ import (
 	"github.com/PhuPhuoc/curanest-nurse-service/docs"
 	"github.com/PhuPhuoc/curanest-nurse-service/middleware"
 	nursehttpservice "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/infars/httpservice"
+	nurserpcservice "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/infars/rpcservice"
 	nursecommands "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/usecase/commands"
 	nursequeries "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/usecase/queries"
 )
@@ -96,9 +97,12 @@ func (sv *server) RunApp() error {
 			Routes(api)
 	}
 
-	// rpc := router.Group("/internal/rpc")
-	// {
-	// }
+	rpc := router.Group("/external/rpc")
+	{
+		nurserpcservice.
+			NewNursingRPCService(nurse_query_builer).
+			AddAuth(authClient).Routes(rpc)
+	}
 	log.Println("server start listening at port: ", sv.port)
 	return router.Run(sv.port)
 }

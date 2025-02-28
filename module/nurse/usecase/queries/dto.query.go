@@ -87,3 +87,22 @@ func toUpdateNurseDTO(data *nursedomain.Nurse) *UpdateNurseDTO {
 type NursingServiceDTO struct {
 	ServiceIds []uuid.UUID `json:"service-ids"`
 }
+
+type StaffIdsQueryDTO struct {
+	Ids []uuid.UUID `json:"ids"`
+}
+
+type StaffDTO struct {
+	NurseId      uuid.UUID `json:"nurse-id"`
+	NursePicture string    `json:"nurse-picture"`
+	NurseName    string    `json:"nurse-name"`
+}
+
+func toStaffDTO(data *nursedomain.Nurse) *StaffDTO {
+	dto := &StaffDTO{
+		NurseId:      data.GetID(),
+		NursePicture: data.GetNursePicture(),
+		NurseName:    data.GetNurseName(),
+	}
+	return dto
+}

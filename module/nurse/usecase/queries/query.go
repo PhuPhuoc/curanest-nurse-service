@@ -12,6 +12,8 @@ type Queries struct {
 	GetMe   *getMyProfileHandler
 	GetById *getByIdHandler
 
+	GetStaffByIds *getStaffByIdsHandler
+
 	GetNusingServiceIds *getNursingServiceHandler
 }
 
@@ -30,6 +32,10 @@ func NewNurseQueryWithBuilder(b Builder) Queries {
 			b.BuildNurseQueryRepo(),
 		),
 
+		GetStaffByIds: NewGetStaffByIdsHandler(
+			b.BuildNurseQueryRepo(),
+		),
+
 		GetNusingServiceIds: NewGetNursingServiceHandler(
 			b.BuildNurseQueryRepo(),
 		),
@@ -39,6 +45,7 @@ func NewNurseQueryWithBuilder(b Builder) Queries {
 type NurseQueryRepo interface {
 	FindById(ctx context.Context, id uuid.UUID) (*nursedomain.Nurse, error)
 
+	GetStaffByIds(ctx context.Context, ids StaffIdsQueryDTO) ([]nursedomain.Nurse, error)
 	GetNurseService(ctx context.Context, nurseId uuid.UUID) ([]uuid.UUID, error)
 }
 

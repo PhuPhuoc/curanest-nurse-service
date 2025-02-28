@@ -45,6 +45,13 @@ definitions:
           type: string
         type: array
     type: object
+  nursequeries.StaffIdsQueryDTO:
+    properties:
+      ids:
+        items:
+          type: string
+        type: array
+    type: object
 info:
   contact: {}
   description: |-
@@ -164,6 +171,34 @@ paths:
       summary: get nurse profile (me)
       tags:
       - nurse
+  /external/rpc/nurses/by-ids:
+    post:
+      consumes:
+      - application/json
+      description: get staff info by ids
+      parameters:
+      - description: account creation data
+        in: body
+        name: form
+        required: true
+        schema:
+          $ref: '#/definitions/nursequeries.StaffIdsQueryDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: get staff info by ids
+      tags:
+      - 'rpc: nurse'
   /ping:
     get:
       consumes:

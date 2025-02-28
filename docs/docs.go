@@ -183,6 +183,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/external/rpc/nurses/by-ids": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get staff info by ids",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rpc: nurse"
+                ],
+                "summary": "get staff info by ids",
+                "parameters": [
+                    {
+                        "description": "account creation data",
+                        "name": "form",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/nursequeries.StaffIdsQueryDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/ping": {
             "get": {
                 "description": "ping server",
@@ -276,6 +320,17 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "service-ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "nursequeries.StaffIdsQueryDTO": {
+            "type": "object",
+            "properties": {
+                "ids": {
                     "type": "array",
                     "items": {
                         "type": "string"
