@@ -132,6 +132,58 @@ paths:
       summary: create nurse account
       tags:
       - nurse
+  /api/v1/nurses/{nurse-id}:
+    get:
+      consumes:
+      - application/json
+      description: get detail of nursing
+      parameters:
+      - description: Nursing ID (UUID)
+        in: path
+        name: nurse-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      summary: get detail of nursing
+      tags:
+      - nurse
+  /api/v1/nurses/{nurse-id}/private-detail:
+    get:
+      consumes:
+      - application/json
+      description: get private detail of nursing
+      parameters:
+      - description: Nursing ID (UUID)
+        in: path
+        name: nurse-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: get private detail of nursing
+      tags:
+      - nurse
   /api/v1/nurses/{nurse-id}/services:
     get:
       consumes:

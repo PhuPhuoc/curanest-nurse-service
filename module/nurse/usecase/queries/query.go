@@ -9,9 +9,11 @@ import (
 )
 
 type Queries struct {
-	GetMe         *getMyProfileHandler
-	GetById       *getByIdHandler
-	GetWithFilter *getNurseWithFilterHandler
+	GetMe                   *getMyProfileHandler
+	GetById                 *getByIdHandler
+	GetNursingDetail        *getNursingDetailHandler
+	GetNursingPrivateDetail *getNursingPrivateDetailHandler
+	GetWithFilter           *getNurseWithFilterHandler
 
 	GetStaffByIds *getStaffByIdsHandler
 
@@ -29,9 +31,19 @@ func NewNurseQueryWithBuilder(b Builder) Queries {
 			b.BuildNurseQueryRepo(),
 			b.BuildExternalAccountServiceInQuery(),
 		),
+
 		GetById: NewGetByIdHandler(
 			b.BuildNurseQueryRepo(),
 		),
+
+		GetNursingDetail: NewGetNursingDetailHandler(
+			b.BuildNurseQueryRepo(),
+		),
+		GetNursingPrivateDetail: NewGetNursingPrivateDetailHandler(
+			b.BuildNurseQueryRepo(),
+			b.BuildExternalAccountServiceInQuery(),
+		),
+
 		GetWithFilter: NewGetNursesWithFilterHandler(
 			b.BuildNurseQueryRepo(),
 		),
@@ -56,4 +68,5 @@ type NurseQueryRepo interface {
 
 type ExternalAccountService interface {
 	GetAccountProfileRPC(ctx context.Context) (*ResponseAccountDTO, error)
+	GetAccountByIdRPC(ctx context.Context, accId string) (*ResponseAccountDTO, error)
 }

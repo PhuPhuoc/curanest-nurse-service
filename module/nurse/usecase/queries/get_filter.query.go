@@ -27,7 +27,7 @@ type NurseFilterDTO struct {
 	Rate      float64 `json:"rate"`
 }
 
-func (h *getNurseWithFilterHandler) Handle(ctx context.Context, rq *NurseRequestQueryDTO) ([]NurseDTO, error) {
+func (h *getNurseWithFilterHandler) Handle(ctx context.Context, rq *NurseRequestQueryDTO) ([]GetNurseDTO, error) {
 	rq.Paging.Process()
 	entities, err := h.queryRepo.GetByFilter(ctx, rq)
 	if err != nil {
@@ -35,9 +35,9 @@ func (h *getNurseWithFilterHandler) Handle(ctx context.Context, rq *NurseRequest
 			WithReason("cannot get nursing list").WithInner(err.Error())
 	}
 
-	dtos := make([]NurseDTO, len(entities))
+	dtos := make([]GetNurseDTO, len(entities))
 	for i := range entities {
-		dtos[i] = *toDTO(&entities[i])
+		dtos[i] = *toGetNurseDTO(&entities[i])
 	}
 
 	return dtos, nil

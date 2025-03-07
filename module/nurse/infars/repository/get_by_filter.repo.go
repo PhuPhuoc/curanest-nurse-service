@@ -93,15 +93,14 @@ func (r *nurseRepo) getData(
 ) {
 	defer wg.Done()
 
+	join := ` join nursing_service on nursing_id = id`
+	order := " order by nurse_name desc"
+	fields := strings.Join(GET_FIELD, ", ")
+
 	args = append(args, paging.Size)
 	args = append(args, (paging.Page-1)*paging.Size)
 	limit := " limit ? offset ?"
 
-	order := " order by nurse_name desc"
-
-	fields := strings.Join(FIELD, ", ")
-
-	join := ` join nursing_service on nursing_id = id`
 	query := "select distinct " + fields + " from " + TABLE + join + whereClause + order + limit
 	fmt.Println("query: ", query)
 	var listdto []NurseDTO

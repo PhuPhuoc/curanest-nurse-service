@@ -56,5 +56,15 @@ func (s *nurseHttpService) Routes(g *gin.RouterGroup) {
 			"",
 			s.handleGetNursingsWithFilter(),
 		)
+		nurse_route.GET(
+			"/:nurse-id",
+			s.handleGetNursingDetail(),
+		)
+		nurse_route.GET(
+			"/:nurse-id/private-detail",
+			middleware.RequireAuth(s.auth),
+			middleware.RequireRole("admin"),
+			s.handleGetNursingPrivateDetail(),
+		)
 	}
 }

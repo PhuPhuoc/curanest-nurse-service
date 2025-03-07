@@ -29,6 +29,15 @@ var (
 		"rate",
 	}
 
+	GET_FIELD = []string{
+		"id",
+		"nurse_picture",
+		"nurse_name",
+		"gender",
+		"current_work_place",
+		"rate",
+	}
+
 	UPDATE_FIELD = []string{
 		"major_id",
 		"nurse_picture",

@@ -30,5 +30,5 @@ func (h *getByIdHandler) Handle(ctx context.Context, nurseId uuid.UUID) (*NurseD
 			WithInner(err.Error())
 	}
 
-	return toDTO(reldto), nil
+	return toNurseDTO(reldto), nil
 }

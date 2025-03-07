@@ -155,6 +155,85 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/nurses/{nurse-id}": {
+            "get": {
+                "description": "get detail of nursing",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nurse"
+                ],
+                "summary": "get detail of nursing",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nursing ID (UUID)",
+                        "name": "nurse-id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/api/v1/nurses/{nurse-id}/private-detail": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get private detail of nursing",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "nurse"
+                ],
+                "summary": "get private detail of nursing",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nursing ID (UUID)",
+                        "name": "nurse-id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/api/v1/nurses/{nurse-id}/services": {
             "get": {
                 "security": [
