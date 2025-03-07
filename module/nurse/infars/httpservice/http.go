@@ -52,5 +52,9 @@ func (s *nurseHttpService) Routes(g *gin.RouterGroup) {
 			middleware.RequireRole("admin"),
 			s.handleGetNursingServices(),
 		)
+		nurse_route.GET(
+			"",
+			s.handleGetNursingsWithFilter(),
+		)
 	}
 }

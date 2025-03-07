@@ -20,7 +20,7 @@ type Nurse struct {
 	certificate        string
 	google_drive_url   string
 	slogan             string
-	rate               string
+	rate               float64
 }
 
 // Các hàm getter
@@ -88,7 +88,7 @@ func (n *Nurse) GetSlogan() string {
 	return n.slogan
 }
 
-func (n *Nurse) GetRate() string {
+func (n *Nurse) GetRate() float64 {
 	return n.rate
 }
 
@@ -110,7 +110,7 @@ func NewNurse(
 	certificate string,
 	googleDriveURL string,
 	slogan string,
-	rate string,
+	rate float64,
 ) (*Nurse, error) {
 	nurse := &Nurse{
 		id:                 id,

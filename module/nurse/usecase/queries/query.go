@@ -9,8 +9,9 @@ import (
 )
 
 type Queries struct {
-	GetMe   *getMyProfileHandler
-	GetById *getByIdHandler
+	GetMe         *getMyProfileHandler
+	GetById       *getByIdHandler
+	GetWithFilter *getNurseWithFilterHandler
 
 	GetStaffByIds *getStaffByIdsHandler
 
@@ -31,6 +32,9 @@ func NewNurseQueryWithBuilder(b Builder) Queries {
 		GetById: NewGetByIdHandler(
 			b.BuildNurseQueryRepo(),
 		),
+		GetWithFilter: NewGetNursesWithFilterHandler(
+			b.BuildNurseQueryRepo(),
+		),
 
 		GetStaffByIds: NewGetStaffByIdsHandler(
 			b.BuildNurseQueryRepo(),
@@ -44,6 +48,7 @@ func NewNurseQueryWithBuilder(b Builder) Queries {
 
 type NurseQueryRepo interface {
 	FindById(ctx context.Context, id uuid.UUID) (*nursedomain.Nurse, error)
+	GetByFilter(ctx context.Context, requestQuery *NurseRequestQueryDTO) ([]nursedomain.Nurse, error)
 
 	GetStaffByIds(ctx context.Context, ids StaffIdsQueryDTO) ([]nursedomain.Nurse, error)
 	GetNurseService(ctx context.Context, nurseId uuid.UUID) ([]uuid.UUID, error)

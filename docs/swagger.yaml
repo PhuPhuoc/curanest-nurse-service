@@ -64,6 +64,47 @@ info:
   version: "1.0"
 paths:
   /api/v1/nurses:
+    get:
+      consumes:
+      - application/json
+      description: get nursing with filter
+      parameters:
+      - description: services id
+        in: query
+        name: service-id
+        type: string
+      - description: nursing name
+        in: query
+        name: nurse-name
+        type: string
+      - description: rate
+        in: query
+        name: rate
+        type: string
+      - description: page
+        in: query
+        name: page
+        type: string
+      - description: size
+        in: query
+        name: size
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: get nursing with filter
+      tags:
+      - nurse
     post:
       consumes:
       - application/json

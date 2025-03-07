@@ -60,7 +60,7 @@ func (h *createNurseAccountHandler) Handle(ctx context.Context, dto *CreateNurse
 		dto.Certificate,
 		dto.GoogleDriveUrl,
 		dto.Slogan,
-		"",
+		4.9777,
 	)
 	if err = h.cmdRepo.Create(ctx, entity); err != nil {
 		_ = h.accService.HardDeleteAccountProfileRPC(ctx, accid.String())

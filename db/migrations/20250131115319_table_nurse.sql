@@ -16,7 +16,7 @@ CREATE TABLE `nursing` (
     `experience` text,
     `certificate` text,
     `google_drive_url` varchar(300),
-    `rate` text,
+    `rate` double,
     `slogan` text,
     PRIMARY KEY (`id`),
     UNIQUE KEY `unique_citizen_id` (`citizen_id`)

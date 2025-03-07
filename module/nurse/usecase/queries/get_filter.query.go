@@ -1,6 +1,10 @@
 package nursequeries
 
-import "context"
+import (
+	"context"
+
+	"github.com/PhuPhuoc/curanest-nurse-service/common"
+)
 
 type getNurseWithFilterHandler struct {
 	queryRepo NurseQueryRepo
@@ -12,6 +16,29 @@ func NewGetNursesWithFilterHandler(queryRepo NurseQueryRepo) *getNurseWithFilter
 	}
 }
 
-func (h *getNurseWithFilterHandler) Handle(ctx context.Context) error {
-	return nil
+type NurseRequestQueryDTO struct {
+	Filter *NurseFilterDTO `json:"filter"`
+	Paging *common.Paging  `json:"paging"`
+}
+
+type NurseFilterDTO struct {
+	ServiceId string  `json:"service-id"`
+	NurseName string  `json:"nurse-name"`
+	Rate      float64 `json:"rate"`
+}
+
+func (h *getNurseWithFilterHandler) Handle(ctx context.Context, rq *NurseRequestQueryDTO) ([]NurseDTO, error) {
+	rq.Paging.Process()
+	entities, err := h.queryRepo.GetByFilter(ctx, rq)
+	if err != nil {
+		return nil, common.NewInternalServerError().
+			WithReason("cannot get nursing list").WithInner(err.Error())
+	}
+
+	dtos := make([]NurseDTO, len(entities))
+	for i := range entities {
+		dtos[i] = *toDTO(&entities[i])
+	}
+
+	return dtos, nil
 }

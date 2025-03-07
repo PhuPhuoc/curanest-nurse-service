@@ -19,7 +19,7 @@ func NewGetByIdHandler(queryRepo NurseQueryRepo) *getByIdHandler {
 	}
 }
 
-func (h *getByIdHandler) Handle(ctx context.Context, nurseId uuid.UUID) (*NurseInfoDTO, error) {
+func (h *getByIdHandler) Handle(ctx context.Context, nurseId uuid.UUID) (*NurseDTO, error) {
 	reldto, err := h.queryRepo.FindById(ctx, nurseId)
 	if err != nil {
 		if errors.Is(err, common.ErrRecordNotFound) {

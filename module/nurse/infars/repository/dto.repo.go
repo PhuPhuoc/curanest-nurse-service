@@ -79,7 +79,7 @@ type NurseDTO struct {
 	Certificate      string    `db:"certificate"`
 	GoogleDriveURL   string    `db:"google_drive_url"`
 	Slogan           string    `db:"slogan"`
-	Rate             string    `db:"rate"`
+	Rate             float64   `db:"rate"`
 }
 
 func (dto *NurseDTO) ToEntity() (*nursedomain.Nurse, error) {
