@@ -93,7 +93,7 @@ func (r *nurseRepo) getData(
 ) {
 	defer wg.Done()
 
-	join := ` join nursing_service on nursing_id = id`
+	join := ` left join nursing_service on nursing_id = id`
 	order := " order by nurse_name desc"
 	fields := strings.Join(GET_FIELD, ", ")
 
@@ -128,7 +128,7 @@ func (r *nurseRepo) getCount(
 ) {
 	defer wg.Done()
 
-	join := ` join nursing_service on nursing_id = id`
+	join := ` left join nursing_service on nursing_id = id`
 	query := "select count(distinct id) from " + TABLE + join + whereClause
 
 	var total int
