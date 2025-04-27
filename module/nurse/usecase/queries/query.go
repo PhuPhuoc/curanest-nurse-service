@@ -18,6 +18,8 @@ type Queries struct {
 	GetStaffByIds *getStaffByIdsHandler
 
 	GetNusingServiceIds *getNursingServiceHandler
+
+	GetBySerivceId *getNurseByServiceIdHandler
 }
 
 type Builder interface {
@@ -55,6 +57,10 @@ func NewNurseQueryWithBuilder(b Builder) Queries {
 		GetNusingServiceIds: NewGetNursingServiceHandler(
 			b.BuildNurseQueryRepo(),
 		),
+
+		GetBySerivceId: NewGetNurseByServiceIdHandler(
+			b.BuildNurseQueryRepo(),
+		),
 	}
 }
 
@@ -64,6 +70,8 @@ type NurseQueryRepo interface {
 
 	GetStaffByIds(ctx context.Context, ids StaffIdsQueryDTO) ([]nursedomain.Nurse, error)
 	GetNurseService(ctx context.Context, nurseId uuid.UUID) ([]uuid.UUID, error)
+
+	GetByServiceId(ctx context.Context, serviceId uuid.UUID) ([]nursedomain.Nurse, error)
 }
 
 type ExternalAccountService interface {

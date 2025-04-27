@@ -292,6 +292,33 @@ paths:
       summary: get staff info by ids
       tags:
       - 'rpc: nurse'
+  /external/rpc/nurses/service/{service-id}:
+    get:
+      consumes:
+      - application/json
+      description: get staff info by ids
+      parameters:
+      - description: service ID (UUID)
+        in: path
+        name: service-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: get staff info by ids
+      tags:
+      - 'rpc: nurse'
   /ping:
     get:
       consumes:

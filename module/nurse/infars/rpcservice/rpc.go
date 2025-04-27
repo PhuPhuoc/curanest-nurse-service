@@ -30,5 +30,10 @@ func (s *nursingRPCService) Routes(g *gin.RouterGroup) {
 			middleware.RequireAuth(s.auth),
 			s.handleGetStaffInfoByIds(),
 		)
+		nursing_route.GET(
+			"/service/:service-id",
+			// middleware.RequireAuth(s.auth),
+			s.handleGetNuringByServiceId(),
+		)
 	}
 }
