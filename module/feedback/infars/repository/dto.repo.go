@@ -69,5 +69,6 @@ func ToDTO(data *feedbackdomain.Feedback) *FeedbackDTO {
 		PatientName:     data.GetPatientName(),
 		Service:         data.GetService(),
 		Star:            data.GetStar().String(),
+		Content:         data.GetContent(),
 	}
 }
