@@ -34,5 +34,11 @@ func (s *feedbackHttpService) Routes(g *gin.RouterGroup) {
 			// middleware.RequireRole("admin"),
 			s.handleCreateFeedback(),
 		)
+		feedback_route.GET(
+			"/:nursing-id",
+			// middleware.RequireAuth(s.auth),
+			// middleware.RequireRole("admin"),
+			s.handleGetFeedbackByNursingId(),
+		)
 	}
 }
