@@ -9,6 +9,7 @@ import (
 
 type Queries struct {
 	GetByNursingId *getByNursingIdHandler
+	GetById        *getByIdHandler
 }
 
 type Builder interface {
@@ -18,6 +19,9 @@ type Builder interface {
 func NewFeedbackQueryWithBuilder(b Builder) Queries {
 	return Queries{
 		GetByNursingId: NewGetByNursingIdHandler(
+			b.BuildFeedbackQueryRepo(),
+		),
+		GetById: NewGetByIdHandler(
 			b.BuildFeedbackQueryRepo(),
 		),
 	}

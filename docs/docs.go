@@ -59,7 +59,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/feedbacks/{nursing-id}": {
+        "/api/v1/feedbacks/nursing/{nursing-id}": {
             "get": {
                 "security": [
                     {
@@ -82,6 +82,48 @@ const docTemplate = `{
                         "type": "string",
                         "description": "nursing ID (UUID)",
                         "name": "nursing-id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/api/v1/feedbacks/{feedback-id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get feedback",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "feedbacks"
+                ],
+                "summary": "get feedback",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "feeedback ID (UUID)",
+                        "name": "feedback-id",
                         "in": "path",
                         "required": true
                     }

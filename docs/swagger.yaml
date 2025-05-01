@@ -119,7 +119,34 @@ paths:
       summary: create feedback for nursing
       tags:
       - feedbacks
-  /api/v1/feedbacks/{nursing-id}:
+  /api/v1/feedbacks/{feedback-id}:
+    get:
+      consumes:
+      - application/json
+      description: get feedback
+      parameters:
+      - description: feeedback ID (UUID)
+        in: path
+        name: feedback-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: get feedback
+      tags:
+      - feedbacks
+  /api/v1/feedbacks/nursing/{nursing-id}:
     get:
       consumes:
       - application/json

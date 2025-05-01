@@ -6,33 +6,33 @@ import (
 	"github.com/google/uuid"
 )
 
-// @Summary		get feedback of nursing
-// @Description	get feedback of nursing
+// @Summary		get feedback
+// @Description	get feedback
 // @Tags			feedbacks
 // @Accept			json
 // @Produce		json
-// @Param			nursing-id	path		string					true	"nursing ID (UUID)"
+// @Param			feedback-id	path		string					true	"feeedback ID (UUID)"
 // @Success		200			{object}	map[string]interface{}	"data"
 // @Failure		400			{object}	error					"Bad request error"
-// @Router			/api/v1/feedbacks/nursing/{nursing-id} [get]
+// @Router			/api/v1/feedbacks/{feedback-id} [get]
 // @Security		ApiKeyAuth
-func (s *feedbackHttpService) handleGetFeedbackByNursingId() gin.HandlerFunc {
+func (s *feedbackHttpService) handleGetFeedbackById() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		var nursingUUID uuid.UUID
+		var feedbackUUID uuid.UUID
 		var err error
-		if nursingId := ctx.Param("nursing-id"); nursingId != "" {
-			nursingUUID, err = uuid.Parse(nursingId)
+		if feedbackId := ctx.Param("feedback-id"); feedbackId != "" {
+			feedbackUUID, err = uuid.Parse(feedbackId)
 			if err != nil {
 				common.ResponseError(ctx, common.NewBadRequestError().WithReason("nursing-id invalid (not a UUID)"))
 				return
 			}
 		}
-		entites, err := s.query.GetByNursingId.Handle(ctx.Request.Context(), nursingUUID)
+		entity, err := s.query.GetById.Handle(ctx.Request.Context(), feedbackUUID)
 		if err != nil {
 			common.ResponseError(ctx, err)
 			return
 		}
 
-		common.ResponseSuccess(ctx, entites)
+		common.ResponseSuccess(ctx, entity)
 	}
 }
