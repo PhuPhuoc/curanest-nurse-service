@@ -15,6 +15,50 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/v1/feedbacks": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "create feedback for nursing",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "feedbacks"
+                ],
+                "summary": "create feedback for nursing",
+                "parameters": [
+                    {
+                        "description": "feedback creation data",
+                        "name": "form",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/feedbackcommands.CreateFeedbackCmdDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/api/v1/nurses": {
             "get": {
                 "security": [
@@ -441,6 +485,44 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "feedbackcommands.CreateFeedbackCmdDTO": {
+            "type": "object",
+            "required": [
+                "content",
+                "medical-record-id",
+                "nurse-id",
+                "patient-name",
+                "service",
+                "star"
+            ],
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "medical-record-id": {
+                    "type": "string"
+                },
+                "nurse-id": {
+                    "type": "string"
+                },
+                "patient-name": {
+                    "type": "string"
+                },
+                "service": {
+                    "type": "string"
+                },
+                "star": {
+                    "type": "string",
+                    "enum": [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5"
+                    ]
+                }
+            }
+        },
         "nursecommands.CreateNurseAccountCmdDTO": {
             "type": "object",
             "properties": {

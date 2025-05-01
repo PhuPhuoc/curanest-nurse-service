@@ -1,4 +1,32 @@
 definitions:
+  feedbackcommands.CreateFeedbackCmdDTO:
+    properties:
+      content:
+        type: string
+      medical-record-id:
+        type: string
+      nurse-id:
+        type: string
+      patient-name:
+        type: string
+      service:
+        type: string
+      star:
+        enum:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+        type: string
+    required:
+    - content
+    - medical-record-id
+    - nurse-id
+    - patient-name
+    - service
+    - star
+    type: object
   nursecommands.CreateNurseAccountCmdDTO:
     properties:
       address:
@@ -63,6 +91,34 @@ info:
   title: Nurse Service
   version: "1.0"
 paths:
+  /api/v1/feedbacks:
+    post:
+      consumes:
+      - application/json
+      description: create feedback for nursing
+      parameters:
+      - description: feedback creation data
+        in: body
+        name: form
+        required: true
+        schema:
+          $ref: '#/definitions/feedbackcommands.CreateFeedbackCmdDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad request error
+          schema: {}
+      security:
+      - ApiKeyAuth: []
+      summary: create feedback for nursing
+      tags:
+      - feedbacks
   /api/v1/nurses:
     get:
       consumes:

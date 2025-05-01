@@ -16,6 +16,9 @@ import (
 	"github.com/PhuPhuoc/curanest-nurse-service/config"
 	"github.com/PhuPhuoc/curanest-nurse-service/docs"
 	"github.com/PhuPhuoc/curanest-nurse-service/middleware"
+	feedbackhttpservice "github.com/PhuPhuoc/curanest-nurse-service/module/feedback/infars/httpservice"
+	feedbackcommands "github.com/PhuPhuoc/curanest-nurse-service/module/feedback/usecase/commands"
+	feedbackqueries "github.com/PhuPhuoc/curanest-nurse-service/module/feedback/usecase/queries"
 	nursehttpservice "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/infars/httpservice"
 	nurserpcservice "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/infars/rpcservice"
 	nursecommands "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/usecase/commands"
@@ -89,12 +92,25 @@ func (sv *server) RunApp() error {
 		builder.NewNurseBuilder(sv.db).AddUrlPathAccountService(urlAccServices),
 	)
 
+	fb_cmd_builder := feedbackcommands.NewFeedbackCmdWithBuilder(
+		builder.NewFeedbackBuilder(sv.db),
+	)
+	fb_query_builder := feedbackqueries.NewFeedbackQueryWithBuilder(
+		builder.NewFeedbackBuilder(sv.db),
+	)
+
 	api := router.Group("/api/v1")
 	{
 		nursehttpservice.
 			NewNurseHTTPService(nurse_cmd_builder, nurse_query_builer).
 			AddAuth(authClient).
 			Routes(api)
+
+		feedbackhttpservice.
+			NewfeedbackHTTPService(fb_cmd_builder, fb_query_builder).
+			AddAuth(authClient).
+			Routes(api)
+
 	}
 
 	rpc := router.Group("/external/rpc")

@@ -9,7 +9,6 @@ import (
 	nursequeries "github.com/PhuPhuoc/curanest-nurse-service/module/nurse/usecase/queries"
 )
 
-// hehe
 type builderOfNurse struct {
 	db                    *sqlx.DB
 	urlPathAccountService string
