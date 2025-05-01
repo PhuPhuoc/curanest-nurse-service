@@ -101,7 +101,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/feedbacks/{feedback-id}": {
+        "/api/v1/feedbacks/{medical-record-id}": {
             "get": {
                 "security": [
                     {
@@ -122,8 +122,8 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "feeedback ID (UUID)",
-                        "name": "feedback-id",
+                        "description": "medical-record ID (UUID)",
+                        "name": "medical-record-id",
                         "in": "path",
                         "required": true
                     }

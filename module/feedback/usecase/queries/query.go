@@ -9,7 +9,7 @@ import (
 
 type Queries struct {
 	GetByNursingId *getByNursingIdHandler
-	GetById        *getByIdHandler
+	GetById        *getByMedicalRecordIdHandler
 }
 
 type Builder interface {
@@ -21,13 +21,13 @@ func NewFeedbackQueryWithBuilder(b Builder) Queries {
 		GetByNursingId: NewGetByNursingIdHandler(
 			b.BuildFeedbackQueryRepo(),
 		),
-		GetById: NewGetByIdHandler(
+		GetById: NewGetByMedicalRecordIdHandler(
 			b.BuildFeedbackQueryRepo(),
 		),
 	}
 }
 
 type FeedbackQueryRepo interface {
-	GetById(ctx context.Context, id uuid.UUID) (*feedbackdomain.Feedback, error)
+	GetByMedicalRecordId(ctx context.Context, id uuid.UUID) (*feedbackdomain.Feedback, error)
 	GetByNursingId(ctx context.Context, nursingId uuid.UUID) ([]feedbackdomain.Feedback, error)
 }

@@ -119,15 +119,15 @@ paths:
       summary: create feedback for nursing
       tags:
       - feedbacks
-  /api/v1/feedbacks/{feedback-id}:
+  /api/v1/feedbacks/{medical-record-id}:
     get:
       consumes:
       - application/json
       description: get feedback
       parameters:
-      - description: feeedback ID (UUID)
+      - description: medical-record ID (UUID)
         in: path
-        name: feedback-id
+        name: medical-record-id
         required: true
         type: string
       produces:
