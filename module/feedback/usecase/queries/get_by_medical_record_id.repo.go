@@ -2,6 +2,7 @@ package feedbackqueries
 
 import (
 	"context"
+	"errors"
 
 	"github.com/PhuPhuoc/curanest-nurse-service/common"
 	"github.com/google/uuid"
@@ -20,6 +21,10 @@ func NewGetByMedicalRecordIdHandler(queryRepo FeedbackQueryRepo) *getByMedicalRe
 func (h *getByMedicalRecordIdHandler) Handle(ctx context.Context, medicalRecordId uuid.UUID) (*FeedbackDTO, error) {
 	entity, err := h.queryRepo.GetByMedicalRecordId(ctx, medicalRecordId)
 	if err != nil {
+		if errors.Is(err, common.ErrRecordNotFound) {
+			return nil, common.NewBadRequestError().
+				WithReason("feedback doen't exist")
+		}
 		return nil, common.NewInternalServerError().
 			WithReason("cannot get feedback (medical-record-id: " + medicalRecordId.String() + ")").
 			WithInner(err.Error())
